@@ -1,10 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import thunk from 'redux-thunk'
+import { createStore, applyMiddleware, compose } from 'redux'
+import { Provider } from 'react-redux'
+import ShoppingCartContainer from './containers/ShoppingCartContainer'
+import rootReducer from './reducers'
+import './index.css'
+import * as serviceWorker from './serviceWorker'
 
-import * as serviceWorker from './serviceWorker';
+const composeEnhancers =
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose
+
+const middleware = composeEnhancers(applyMiddleware(thunk))
+
+const store = createStore(rootReducer, middleware)
 
 ReactDOM.render(
-  <div>Shopping Cart</div>,
-  document.getElementById('root'));
+  <Provider store={store}>
+    <ShoppingCartContainer />
+  </Provider>,
+  document.getElementById('root')
+)
 
-serviceWorker.unregister();
+serviceWorker.unregister()

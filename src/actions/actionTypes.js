@@ -1,0 +1,15 @@
+const actionTypes = {
+  FETCH_PRODUCTS_REQUEST: 'FETCH_PRODUCTS_REQUEST',
+  FETCH_PRODUCTS_SUCCEED: 'FETCH_PRODUCTS_SUCCEED',
+  FETCH_PRODUCTS_FAIL: 'FETCH_PRODUCTS_FAIL',
+
+  PRODUCTS_SELECTED: 'PRODUCTS_SELECTED'
+}
+
+export const selectProductsTypes = {
+  INC: 'INC',
+  DEC: 'DEC',
+  REMOVE: 'REMOVE'
+}
+
+export default actionTypes
