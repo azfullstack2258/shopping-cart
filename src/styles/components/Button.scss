@@ -1,0 +1,13 @@
+@import '../utils/variables';
+
+.button {
+  background-color: $color-light--400;
+  border: none;
+  border-radius: 50%;
+  color: $color-white;
+  cursor: pointer;
+  outline: none;
+  margin: 0 10px;
+  width: 34px;
+  height: 34px;
+}

@@ -1,17 +1,20 @@
 import actionTypes from './actionTypes'
-import api from '../utils/api'
+
+import api from '../service/api'
 
 export const checkPromoCode = promoCode => ({
   type: actionTypes.CHECK_PROMO_CODE,
   promoCode
 })
 
-export const checkoutProducts = baskets => {
-  return {
-    type: actionTypes.CHECKOUT_PRODUCTS,
-    baskets
-  }
-}
+export const checkoutProducts = baskets => ({
+  type: actionTypes.CHECKOUT_PRODUCTS,
+  baskets
+})
+
+export const checkoutProductsReset = () => ({
+  type: actionTypes.CHECKOUT_PRODUCTS_RESET
+})
 
 export const selectProducts = (sku, mode) => ({
   type: actionTypes.PRODUCTS_SELECTED,

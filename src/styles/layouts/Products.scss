@@ -1,0 +1,41 @@
+@import '../utils/variables';
+
+.products {
+  color: $color-dark--500;
+  background: $color-white;
+
+  &__header {
+    position: relative;
+  }
+
+  &__title {
+    margin: 10px;
+    text-align: center;
+  }
+
+  &__cart {
+    color: $color-green--500;
+    text-decoration: none;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  &__row {
+    align-items: center;
+    border-bottom: 1px solid $color-light--200;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+
+    &-name {
+      flex: 1;
+      margin: 0 10px;
+    }
+
+    &-price {
+      margin: 0 10px;
+    }
+  }
+}

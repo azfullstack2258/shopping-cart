@@ -1,0 +1,84 @@
+@import '../utils/variables';
+
+.checkout {
+  color: $color-dark--500;
+  background: $color-white;
+
+  &__header {
+    position: relative;
+  }
+
+  &__prev {
+    font-size: 32px;
+    text-decoration: none;
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  &__title {
+    margin: 10px;
+    text-align: center;
+  }
+
+  &__cart {
+    color: $color-green--500;
+    text-decoration: none;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  &__row {
+    align-items: center;
+    border-bottom: 1px solid $color-light--200;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+
+    &-name {
+      flex: 1;
+      margin: 0 10px;
+    }
+
+    &-num,
+    &-price {
+      margin: 0 10px;
+    }
+  }
+
+  &__check-input {
+    height: 30px;
+    border: 1px solid $color-dark--500;
+    border-radius: 2px;
+    outline: none;
+  }
+
+  &__check-button {
+    color: $color-white;
+    background-color: $color-green--500;
+    border: none;
+    border-radius: 5px;
+    height: 34px;
+    width: 100px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__checkout-button {
+    color: $color-green--500;
+    background-color: $color-white;
+    border: 3px solid $color-green--500;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 20px auto;
+    display: block;
+    height: 50px;
+    width: 200px;
+    outline: none;
+    cursor: pointer;
+  }
+}

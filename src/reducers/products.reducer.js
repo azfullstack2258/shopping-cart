@@ -9,7 +9,7 @@ const products = (state = initialState, action) => {
       return [
         ...action.products.map(el => ({
           ...el,
-          selectedNum: 0
+          selectedNum: el.selectedNum || 0
         }))
       ]
     case actionTypes.PRODUCTS_SELECTED:

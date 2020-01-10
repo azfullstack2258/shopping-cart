@@ -1,5 +1,6 @@
 import { put, takeEvery, all } from 'redux-saga/effects'
-import actionTypes from '../actions/actionTypes'
+
+import actionTypes from '../../actions/actionTypes'
 
 function* checkPromoCode() {
   yield put({

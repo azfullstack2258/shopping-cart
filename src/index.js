@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import ShoppingCartContainer from './containers/ShoppingCartContainer'
 import rootReducer from './reducers'
-import rootSagas from './sagas'
+import rootSagas from './reducers/sagas'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
 
