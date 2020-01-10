@@ -1,5 +1,17 @@
 import actionTypes from './actionTypes'
-import api from './api'
+import api from '../utils/api'
+
+export const checkPromoCode = promoCode => ({
+  type: actionTypes.CHECK_PROMO_CODE,
+  promoCode
+})
+
+export const checkoutProducts = baskets => {
+  return {
+    type: actionTypes.CHECKOUT_PRODUCTS,
+    baskets
+  }
+}
 
 export const selectProducts = (sku, mode) => ({
   type: actionTypes.PRODUCTS_SELECTED,

@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom'
 import thunk from 'redux-thunk'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
+import createSagaMiddleware from 'redux-saga'
 import ShoppingCartContainer from './containers/ShoppingCartContainer'
 import rootReducer from './reducers'
+import rootSagas from './sagas'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
 
@@ -13,9 +15,11 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose
 
-const middleware = composeEnhancers(applyMiddleware(thunk))
-
+const sagaMiddleware = createSagaMiddleware()
+const middleware = composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
 const store = createStore(rootReducer, middleware)
+
+sagaMiddleware.run(rootSagas)
 
 ReactDOM.render(
   <Provider store={store}>
