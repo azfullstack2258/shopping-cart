@@ -16,6 +16,17 @@ export function* checkPromoCodeWatcher() {
   yield takeEvery(actionTypes.CHECK_PROMO_CODE, checkPromoCode)
 }
 
+function* checkoutProducts() {
+  yield put({
+    type: actionTypes.CHECKOUT_PRODUCTS_SUCCEED,
+    response: { msg: 'SUCCESS' }
+  })
+}
+
+export function* checkoutProductsWatcher() {
+  yield takeEvery(actionTypes.CHECKOUT_PRODUCTS, checkoutProducts)
+}
+
 export default function* rootSagas() {
-  yield all([checkPromoCodeWatcher()])
+  yield all([checkPromoCodeWatcher(), checkoutProductsWatcher()])
 }

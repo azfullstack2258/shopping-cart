@@ -28,3 +28,12 @@ export const getAllPrice = state => {
     basketTotal = (subTotal - promoAmount).toFixed(2)
   return { subTotal, promoAmount, basketTotal }
 }
+
+export const getCheckoutProductsStatus = state => {
+  switch (state.checkoutProducts.msg) {
+    case 'SUCCESS':
+      return 'SUCCESS'
+    default:
+      return ''
+  }
+}
