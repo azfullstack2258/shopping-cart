@@ -1,23 +1,40 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Button from './Button'
+import api from '../service/api'
 import { minusSvg, plusSvg, closeSvg } from '../styles/svg'
 
 class Checkout extends React.Component {
+  checkoutProductsEvent = () => {
+    fetch(api.checkout)
+      .then(res => res.json())
+      .then(res => {
+        switch (res.msg) {
+          case 'SUCCESS':
+            alert('SUCCESS')
+            return
+          default:
+            return
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
   render() {
     const {
       selectProducts,
       selectedProducts,
       selectedTotalNum,
       allPrice,
-      checkPromoCode,
-      checkoutProducts
+      checkPromoCode
     } = this.props
+
     const priceList = [
       { name: 'Sub Total', price: allPrice.subTotal },
       { name: 'Promo Amount', price: allPrice.promoAmount },
       { name: 'Basket Total', price: allPrice.basketTotal }
     ]
+
     return (
       <div className="checkout">
         <div className="checkout__header">
@@ -63,20 +80,12 @@ class Checkout extends React.Component {
         ))}
         <button
           className="checkout__checkout-button"
-          onClick={checkoutProducts}
+          onClick={this.checkoutProductsEvent}
         >
           Checkout
         </button>
       </div>
     )
-  }
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props !== prevProps) {
-      if (this.props.checkoutProductsStatus === 'SUCCESS') {
-        alert('SUCCESS')
-        this.props.checkoutProductsReset()
-      }
-    }
   }
 }
 

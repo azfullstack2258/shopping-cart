@@ -7,15 +7,6 @@ export const checkPromoCode = promoCode => ({
   promoCode
 })
 
-export const checkoutProducts = baskets => ({
-  type: actionTypes.CHECKOUT_PRODUCTS,
-  baskets
-})
-
-export const checkoutProductsReset = () => ({
-  type: actionTypes.CHECKOUT_PRODUCTS_RESET
-})
-
 export const selectProducts = (sku, mode) => ({
   type: actionTypes.PRODUCTS_SELECTED,
   sku,
