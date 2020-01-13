@@ -1,10 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import axios from 'axios'
-import api from '../../service/api'
 import actions from '../actions/actions'
+import { fetchProductsAPI } from '../../service/products'
 
 function* fetchProducts() {
-  const { data } = yield call([axios, axios.get], api.products)
+  const { data } = yield call(fetchProductsAPI)
   yield put({
     type: actions.FETCH_PRODUCTS_SUCCEED,
     products: data
