@@ -33,9 +33,9 @@ const cart = (state = initialState, action) => {
         ...state,
         selectedProducts: [...items.filter(el => el.selectedNum !== 0)]
       }
-    case actions.CHECKOUT_PRODUCTS_SUCCEED:
+    case actions.CHECKOUT_CART_SUCCEED:
       return { ...state, msg: action.response.msg }
-    case actions.CHECKOUT_PRODUCTS_RESET:
+    case actions.CHECKOUT_CART_RESET:
       return {
         ...state,
         msg: ''

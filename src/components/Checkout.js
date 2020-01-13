@@ -5,19 +5,18 @@ import { bindActionCreators } from 'redux'
 
 import {
   getAllPrice,
-  getCheckoutProductsStatus,
+  getcheckoutCartStatus,
   getSelectedProducts
 } from '../selectors'
 import {
-  checkoutProductsRequest,
+  checkoutCartRequest,
   applyPromoCode,
   selectProducts,
-  checkoutProductsReset
+  checkoutCartReset
 } from '../redux/actions'
 import Button from './Button'
 import { minusSvg, plusSvg, closeSvg } from '../styles/svg'
 import '../styles/layouts/Checkout.scss'
-
 
 class Checkout extends React.Component {
   render() {
@@ -27,7 +26,7 @@ class Checkout extends React.Component {
       selectedTotalNum,
       allPrice,
       applyPromoCode,
-      checkoutProductsRequest
+      checkoutCartRequest
     } = this.props
 
     const priceList = [
@@ -81,8 +80,8 @@ class Checkout extends React.Component {
         ))}
         <button
           className="checkout__checkout-button"
-          onClick={checkoutProductsRequest}
-      >
+          onClick={checkoutCartRequest}
+        >
           Checkout
         </button>
       </div>
@@ -91,9 +90,9 @@ class Checkout extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props !== prevProps) {
-      if (this.props.checkoutProductsStatus === 'SUCCESS') {
+      if (this.props.checkoutCartStatus === 'SUCCESS') {
         alert('SUCCESS')
-        this.props.checkoutProductsReset()
+        this.props.checkoutCartReset()
       }
     }
   }
@@ -102,7 +101,7 @@ class Checkout extends React.Component {
 const mapStateToProps = state => ({
   allPrice: getAllPrice(state),
   selectedProducts: getSelectedProducts(state),
-  checkoutProductsStatus: getCheckoutProductsStatus(state)
+  checkoutCartStatus: getcheckoutCartStatus(state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -110,8 +109,8 @@ const mapDispatchToProps = dispatch => ({
     {
       applyPromoCode,
       selectProducts,
-      checkoutProductsRequest,
-      checkoutProductsReset
+      checkoutCartRequest,
+      checkoutCartReset
     },
     dispatch
   )

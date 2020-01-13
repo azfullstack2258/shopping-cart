@@ -45,7 +45,4 @@ const mapDispatchToProps = dispatch => ({
   )
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ShoppingCart)
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)

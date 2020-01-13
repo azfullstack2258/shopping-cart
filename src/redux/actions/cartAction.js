@@ -5,13 +5,13 @@ export const applyPromoCode = promoCode => ({
   promoCode
 })
 
-export const checkoutProductsRequest = baskets => ({
-  type: actions.CHECKOUT_PRODUCTS_REQUEST,
+export const checkoutCartRequest = baskets => ({
+  type: actions.CHECKOUT_CART_REQUEST,
   baskets
 })
 
-export const checkoutProductsReset = () => ({
-  type: actions.CHECKOUT_PRODUCTS_RESET
+export const checkoutCartReset = () => ({
+  type: actions.CHECKOUT_CART_RESET
 })
 
 export const selectProducts = (item, mode) => ({

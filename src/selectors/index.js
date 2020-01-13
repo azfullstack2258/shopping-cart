@@ -28,7 +28,7 @@ export const getAllPrice = state => {
   return { subTotal, promoAmount, basketTotal }
 }
 
-export const getCheckoutProductsStatus = state => {
+export const getcheckoutCartStatus = state => {
   switch (state.cart.msg) {
     case 'SUCCESS':
       return 'SUCCESS'
