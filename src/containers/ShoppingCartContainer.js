@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { fetchProducts } from '../actions'
+import { fetchProductsRequest } from '../actions'
 import { getSelectedTotalNum } from '../selectors'
 import ProductsContainer from './ProductsContainer'
 import CheckoutContainer from './CheckoutContainer'
@@ -28,7 +28,7 @@ class ShoppingCartContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchProducts()
+    this.props.fetchProductsRequest()
   }
 }
 
@@ -39,7 +39,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
     {
-      fetchProducts
+      fetchProductsRequest
     },
     dispatch
   )

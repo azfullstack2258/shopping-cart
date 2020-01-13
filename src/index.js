@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import thunk from 'redux-thunk'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
@@ -16,7 +15,7 @@ const composeEnhancers =
     : compose
 
 const sagaMiddleware = createSagaMiddleware()
-const middleware = composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
+const middleware = composeEnhancers(applyMiddleware(sagaMiddleware))
 const store = createStore(rootReducer, middleware)
 
 sagaMiddleware.run(rootSagas)

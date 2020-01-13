@@ -1,6 +1,8 @@
-import { put, takeEvery, all } from 'redux-saga/effects'
+import { call, put, takeEvery, all } from 'redux-saga/effects'
+import axios from 'axios'
 
 import actionTypes from '../../actions/actionTypes'
+import api from '../../service/api'
 
 function* applyPromoCode() {
   yield put({
@@ -27,6 +29,18 @@ export function* checkoutProductsWatcher() {
   yield takeEvery(actionTypes.CHECKOUT_PRODUCTS, checkoutProducts)
 }
 
+function* fetchProducts() {
+  const { data } = yield call([axios, axios.get], api.products)
+  yield put({
+    type: actionTypes.FETCH_PRODUCTS_SUCCEED,
+    products: data
+  })
+}
+
+export function* fetchProductsWatcher() {
+  yield takeEvery(actionTypes.FETCH_PRODUCTS_REQUEST, fetchProducts)
+}
+
 export default function* rootSagas() {
-  yield all([applyPromoCodeWatcher(), checkoutProductsWatcher()])
+  yield all([applyPromoCodeWatcher(), checkoutProductsWatcher(), fetchProductsWatcher()])
 }
