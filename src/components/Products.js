@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import Button from './Button'
 import { getProducts } from '../selectors'
-import { selectProducts } from '../actions'
+import { selectProducts } from '../redux/actions'
 import '../styles/layouts/Products.scss'
 import { plusSvg } from '../styles/svg'
 

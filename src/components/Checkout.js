@@ -13,7 +13,7 @@ import {
   applyPromoCode,
   selectProducts,
   checkoutProductsReset
-} from '../actions'
+} from '../redux/actions'
 import Button from './Button'
 import { minusSvg, plusSvg, closeSvg } from '../styles/svg'
 import '../styles/layouts/Checkout.scss'

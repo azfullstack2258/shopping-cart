@@ -1,4 +1,4 @@
-import actionTypes, { selectProductsTypes } from '../actions/actionTypes'
+import actions, { selectProductsTypes } from '../actions/actions'
 
 const initialState = {
   selectedProducts: [],
@@ -8,7 +8,7 @@ const initialState = {
 
 const cart = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SELECT_PRODUCTS:
+    case actions.SELECT_PRODUCTS:
       const items = [...state.selectedProducts]
       const item = items.find(el => el.sku === action.item.sku)
       if (item) {
@@ -33,14 +33,14 @@ const cart = (state = initialState, action) => {
         ...state,
         selectedProducts: [...items.filter(el => el.selectedNum !== 0)]
       }
-    case actionTypes.CHECKOUT_PRODUCTS_SUCCEED:
+    case actions.CHECKOUT_PRODUCTS_SUCCEED:
       return { ...state, msg: action.response.msg }
-    case actionTypes.CHECKOUT_PRODUCTS_RESET:
+    case actions.CHECKOUT_PRODUCTS_RESET:
       return {
         ...state,
         msg: ''
       }
-    case actionTypes.APPLY_PROMO_CODE_SUCCEED:
+    case actions.APPLY_PROMO_CODE_SUCCEED:
       return { ...state, promoCode: action.response }
     default:
       return state

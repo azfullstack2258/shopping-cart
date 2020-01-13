@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 
 import Products from './Products'
 import Checkout from './Checkout'
-import { fetchProductsRequest } from '../actions'
+import { fetchProductsRequest } from '../redux/actions'
 import { getSelectedTotalNum } from '../selectors'
 import '../styles/pages/ShoppingCart.scss'
 

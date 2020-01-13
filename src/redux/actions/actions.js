@@ -1,4 +1,4 @@
-const actionTypes = {
+const actions = {
   FETCH_PRODUCTS_REQUEST: 'FETCH_PRODUCTS_REQUEST',
   FETCH_PRODUCTS_SUCCEED: 'FETCH_PRODUCTS_SUCCEED',
   FETCH_PRODUCTS_FAIL: 'FETCH_PRODUCTS_FAIL',
@@ -20,4 +20,4 @@ export const selectProductsTypes = {
   REMOVE: 'REMOVE'
 }
 
-export default actionTypes
+export default actions
