@@ -8,12 +8,12 @@ const initialState = {
 
 const handleCartEvent = (state, action, value) => {
   const items = [...state.selectedProducts]
-  const item = items.find(el => el.sku === action.item.sku)
+  const item = items.find(el => el.sku === action.sku)
   item
     ? value === 0
       ? (item.selectedNum = 0)
       : (item.selectedNum += value)
-    : items.push({ ...action.item, selectedNum: 1 })
+    : items.push({ sku: action.sku, selectedNum: 1 })
   return {
     ...state,
     selectedProducts: [...items.filter(el => el.selectedNum !== 0)]

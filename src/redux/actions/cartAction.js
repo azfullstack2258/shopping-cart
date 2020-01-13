@@ -14,17 +14,17 @@ export const checkoutCartReset = () => ({
   type: actions.CHECKOUT_CART_RESET
 })
 
-export const addToCart = item => ({
+export const addToCart = sku => ({
   type: actions.ADD_TO_CART,
-  item
+  sku
 })
 
-export const removeFromCart = item => ({
+export const removeFromCart = sku => ({
   type: actions.REMOVE_FROM_CART,
-  item
+  sku
 })
 
-export const clearFromCart = item => ({
+export const clearFromCart = sku => ({
   type: actions.CLEAR_FROM_CART,
-  item
+  sku
 })

@@ -23,7 +23,10 @@ const Products = props => {
         <div key={el.sku} className="products__row">
           <div className="products__row-name">{el.name}</div>
           <div className="products__row-price">${el.price}</div>
-          <Button content={plusSvg} handleClickEvent={() => addToCart(el)} />
+          <Button
+            content={plusSvg}
+            handleClickEvent={() => addToCart(el.sku)}
+          />
         </div>
       ))}
     </div>

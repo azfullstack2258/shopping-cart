@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import {
   getAllPrice,
   getcheckoutCartStatus,
-  getSelectedProducts
+  getProductsFromCart
 } from '../selectors'
 import {
   checkoutCartRequest,
@@ -26,7 +26,7 @@ class Checkout extends React.Component {
       addToCart,
       removeFromCart,
       clearFromCart,
-      selectedProducts,
+      productsFromCart,
       selectedTotalNum,
       allPrice,
       applyPromoCode,
@@ -49,19 +49,22 @@ class Checkout extends React.Component {
           <div className="checkout__cart">Chart {selectedTotalNum}</div>
         </div>
 
-        {selectedProducts.map(el => (
+        {productsFromCart.map(el => (
           <div key={el.sku} className="checkout__row">
             <div className="checkout__row-name">{el.name}</div>
             <Button
               content={minusSvg}
-              handleClickEvent={() => removeFromCart(el)}
+              handleClickEvent={() => removeFromCart(el.sku)}
             />
             <div className="checkout__row-num">{el.selectedNum}</div>
-            <Button content={plusSvg} handleClickEvent={() => addToCart(el)} />
+            <Button
+              content={plusSvg}
+              handleClickEvent={() => addToCart(el.sku)}
+            />
             <div className="checkout__row-price">{el.price}</div>
             <Button
               content={closeSvg}
-              handleClickEvent={() => clearFromCart(el)}
+              handleClickEvent={() => clearFromCart(el.sku)}
             />
           </div>
         ))}
@@ -101,7 +104,7 @@ class Checkout extends React.Component {
 
 const mapStateToProps = state => ({
   allPrice: getAllPrice(state),
-  selectedProducts: getSelectedProducts(state),
+  productsFromCart: getProductsFromCart(state),
   checkoutCartStatus: getcheckoutCartStatus(state)
 })
 
