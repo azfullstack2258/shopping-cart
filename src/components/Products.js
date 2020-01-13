@@ -1,7 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import Button from './Button'
+import { getProducts } from '../selectors'
+import { selectProducts } from '../actions'
 import '../styles/layouts/Products.scss'
 import { plusSvg } from '../styles/svg'
 
@@ -15,18 +19,34 @@ const Products = props => {
           Cart {selectedTotalNum}
         </Link>
       </div>
-      {products.map(el => (
-        <div key={el.sku} className="products__row">
-          <div className="products__row-name">{el.name}</div>
-          <div className="products__row-price">${el.price}</div>
-          <Button
-            content={plusSvg}
-            handleClickEvent={() => selectProducts(el, 'INC')}
-          />
-        </div>
-      ))}
+      {
+        products.map(el => (
+          <div key={el.sku} className="products__row">
+            <div className="products__row-name">{el.name}</div>
+            <div className="products__row-price">${el.price}</div>
+            <Button
+              content={plusSvg}
+              handleClickEvent={() => selectProducts(el, 'INC')}
+            />
+          </div>
+        ))
+      }
     </div>
   )
 }
 
-export default Products
+const mapStateToProps = state => ({
+  products: getProducts(state)
+})
+
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      selectProducts
+    },
+    dispatch
+  )
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products)
+

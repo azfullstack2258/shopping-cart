@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import Products from './Products'
+import Checkout from './Checkout'
 import { fetchProductsRequest } from '../actions'
 import { getSelectedTotalNum } from '../selectors'
-import ProductsContainer from './ProductsContainer'
-import CheckoutContainer from './CheckoutContainer'
 import '../styles/pages/ShoppingCart.scss'
 
-class ShoppingCartContainer extends React.Component {
+class ShoppingCart extends React.Component {
   render() {
     const { selectedTotalNum } = this.props
 
@@ -17,10 +17,10 @@ class ShoppingCartContainer extends React.Component {
       <Router>
         <Switch>
           <Route path="/checkout">
-            <CheckoutContainer selectedTotalNum={selectedTotalNum} />
+            <Checkout selectedTotalNum={selectedTotalNum} />
           </Route>
           <Route path="/">
-            <ProductsContainer selectedTotalNum={selectedTotalNum} />
+            <Products selectedTotalNum={selectedTotalNum} />
           </Route>
         </Switch>
       </Router>
@@ -48,4 +48,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ShoppingCartContainer)
+)(ShoppingCart)
