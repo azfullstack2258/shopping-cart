@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 
 import {
   getAllPrice,
-  getcheckoutCartStatus,
+  getCheckoutCartStatus,
   getProductsFromCart
 } from '../selectors'
 import {
@@ -16,7 +16,7 @@ import {
   clearFromCart,
   checkoutCartReset
 } from '../redux/actions'
-import Button from './Button'
+import Button from '../components/Button'
 import { minusSvg, plusSvg, closeSvg } from '../styles/svg'
 import '../styles/layouts/Checkout.scss'
 
@@ -105,7 +105,7 @@ class Checkout extends React.Component {
 const mapStateToProps = state => ({
   allPrice: getAllPrice(state),
   productsFromCart: getProductsFromCart(state),
-  checkoutCartStatus: getcheckoutCartStatus(state)
+  checkoutCartStatus: getCheckoutCartStatus(state)
 })
 
 const mapDispatchToProps = dispatch => ({

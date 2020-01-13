@@ -1,5 +1,4 @@
-import actions from '../actions/actions'
-
+import actionTypes from '../actions'
 const initialState = {
   selectedProducts: [],
   msg: '',
@@ -22,20 +21,20 @@ const handleCartEvent = (state, action, value) => {
 
 const cart = (state = initialState, action) => {
   switch (action.type) {
-    case actions.ADD_TO_CART:
+    case actionTypes.ADD_TO_CART:
       return { ...handleCartEvent(state, action, 1) }
-    case actions.REMOVE_FROM_CART:
+    case actionTypes.REMOVE_FROM_CART:
       return { ...handleCartEvent(state, action, -1) }
-    case actions.CLEAR_FROM_CART:
+    case actionTypes.CLEAR_FROM_CART:
       return { ...handleCartEvent(state, action, 0) }
-    case actions.CHECKOUT_CART_SUCCEED:
+    case actionTypes.CHECKOUT_CART_SUCCEED:
       return { ...state, msg: action.response.msg }
-    case actions.CHECKOUT_CART_RESET:
+    case actionTypes.CHECKOUT_CART_RESET:
       return {
         ...state,
         msg: ''
       }
-    case actions.APPLY_PROMO_CODE_SUCCEED:
+    case actionTypes.APPLY_PROMO_CODE_SUCCEED:
       return { ...state, promoCode: action.response }
     default:
       return state

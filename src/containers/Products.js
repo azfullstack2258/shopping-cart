@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import Button from './Button'
+import Button from '../components/Button'
 import { getProducts } from '../selectors'
 import { addToCart } from '../redux/actions'
 import '../styles/layouts/Products.scss'

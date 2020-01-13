@@ -54,7 +54,7 @@ export const getAllPrice = state => {
   return { subTotal, promoAmount, basketTotal }
 }
 
-export const getcheckoutCartStatus = createSelector(getCart, item => {
+export const getCheckoutCartStatus = createSelector(getCart, item => {
   switch (item.msg) {
     case 'SUCCESS':
       return 'SUCCESS'

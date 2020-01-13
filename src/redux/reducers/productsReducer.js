@@ -1,10 +1,10 @@
-import actions from '../actions/actions'
+import actionTypes from '../actions'
 
 const initialState = []
 
 const products = (state = initialState, action) => {
   switch (action.type) {
-    case actions.FETCH_PRODUCTS_SUCCEED:
+    case actionTypes.FETCH_PRODUCTS_SUCCEED:
       return action.products
     default:
       return state

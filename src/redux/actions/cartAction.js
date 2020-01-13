@@ -1,30 +1,44 @@
-import actions from './actions'
+const cartActionTypes = {
+  ADD_TO_CART: 'ADD_TO_CART',
+  REMOVE_FROM_CART: 'REMOVE_FROM_CART',
+  CLEAR_FROM_CART: 'CLEAR_FROM_CART',
+
+  APPLY_PROMO_CODE_REQUEST: 'APPLY_PROMO_CODE_REQUEST',
+  APPLY_PROMO_CODE_SUCCEED: 'APPLY_PROMO_CODE_SUCCEED',
+
+  CHECKOUT_CART_REQUEST: 'CHECKOUT_CART_REQUEST',
+  CHECKOUT_CART_SUCCEED: 'CHECKOUT_CART_SUCCEED',
+
+  CHECKOUT_CART_RESET: 'CHECKOUT_CART_RESET'
+}
 
 export const applyPromoCode = promoCode => ({
-  type: actions.APPLY_PROMO_CODE_REQUEST,
+  type: cartActionTypes.APPLY_PROMO_CODE_REQUEST,
   promoCode
 })
 
 export const checkoutCartRequest = baskets => ({
-  type: actions.CHECKOUT_CART_REQUEST,
+  type: cartActionTypes.CHECKOUT_CART_REQUEST,
   baskets
 })
 
 export const checkoutCartReset = () => ({
-  type: actions.CHECKOUT_CART_RESET
+  type: cartActionTypes.CHECKOUT_CART_RESET
 })
 
 export const addToCart = sku => ({
-  type: actions.ADD_TO_CART,
+  type: cartActionTypes.ADD_TO_CART,
   sku
 })
 
 export const removeFromCart = sku => ({
-  type: actions.REMOVE_FROM_CART,
+  type: cartActionTypes.REMOVE_FROM_CART,
   sku
 })
 
 export const clearFromCart = sku => ({
-  type: actions.CLEAR_FROM_CART,
+  type: cartActionTypes.CLEAR_FROM_CART,
   sku
 })
+
+export default cartActionTypes
