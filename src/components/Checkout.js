@@ -13,11 +13,13 @@ class Checkout extends React.Component {
       checkPromoCode,
       checkoutProducts
     } = this.props
+
     const priceList = [
       { name: 'Sub Total', price: allPrice.subTotal },
       { name: 'Promo Amount', price: allPrice.promoAmount },
       { name: 'Basket Total', price: allPrice.basketTotal }
     ]
+
     return (
       <div className="checkout">
         <div className="checkout__header">
@@ -33,17 +35,17 @@ class Checkout extends React.Component {
             <div className="checkout__row-name">{el.name}</div>
             <Button
               content={minusSvg}
-              handleClickEvent={() => selectProducts(el.sku, 'DEC')}
+              handleClickEvent={() => selectProducts(el, 'DEC')}
             />
             <div className="checkout__row-num">{el.selectedNum}</div>
             <Button
               content={plusSvg}
-              handleClickEvent={() => selectProducts(el.sku, 'INC')}
+              handleClickEvent={() => selectProducts(el, 'INC')}
             />
             <div className="checkout__row-price">{el.price}</div>
             <Button
               content={closeSvg}
-              handleClickEvent={() => selectProducts(el.sku, 'REMOVE')}
+              handleClickEvent={() => selectProducts(el, 'REMOVE')}
             />
           </div>
         ))}
@@ -70,6 +72,7 @@ class Checkout extends React.Component {
       </div>
     )
   }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props !== prevProps) {
       if (this.props.checkoutProductsStatus === 'SUCCESS') {

@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux'
 import products from './products.reducer'
-import promoCode from './promo-code.reducer'
-import checkoutProducts from './checkout-products.reducer'
+import cart from './cart.reducer'
 
 const rootReducer = combineReducers({
   products,
-  promoCode,
-  checkoutProducts
+  cart
 })
 
 export default rootReducer

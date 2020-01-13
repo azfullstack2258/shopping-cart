@@ -21,7 +21,7 @@ const Products = props => {
           <div className="products__row-price">${el.price}</div>
           <Button
             content={plusSvg}
-            handleClickEvent={() => selectProducts(el.sku, 'INC')}
+            handleClickEvent={() => selectProducts(el, 'INC')}
           />
         </div>
       ))}

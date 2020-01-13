@@ -16,9 +16,9 @@ export const checkoutProductsReset = () => ({
   type: actionTypes.CHECKOUT_PRODUCTS_RESET
 })
 
-export const selectProducts = (sku, mode) => ({
+export const selectProducts = (item, mode) => ({
   type: actionTypes.PRODUCTS_SELECTED,
-  sku,
+  item,
   mode
 })
 
