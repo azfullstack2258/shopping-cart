@@ -14,8 +14,17 @@ export const checkoutCartReset = () => ({
   type: actions.CHECKOUT_CART_RESET
 })
 
-export const selectProducts = (item, mode) => ({
-  type: actions.SELECT_PRODUCTS,
-  item,
-  mode
+export const addToCart = item => ({
+  type: actions.ADD_TO_CART,
+  item
+})
+
+export const removeFromCart = item => ({
+  type: actions.REMOVE_FROM_CART,
+  item
+})
+
+export const clearFromCart = item => ({
+  type: actions.CLEAR_FROM_CART,
+  item
 })

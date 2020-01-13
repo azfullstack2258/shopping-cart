@@ -1,4 +1,4 @@
-import actions, { selectProductsTypes } from '../actions/actions'
+import actions from '../actions/actions'
 
 const initialState = {
   selectedProducts: [],
@@ -6,33 +6,28 @@ const initialState = {
   promoCode: { discounttype: '', amount: 0 }
 }
 
+const handleCartEvent = (state, action, value) => {
+  const items = [...state.selectedProducts]
+  const item = items.find(el => el.sku === action.item.sku)
+  item
+    ? value === 0
+      ? (item.selectedNum = 0)
+      : (item.selectedNum += value)
+    : items.push({ ...action.item, selectedNum: 1 })
+  return {
+    ...state,
+    selectedProducts: [...items.filter(el => el.selectedNum !== 0)]
+  }
+}
+
 const cart = (state = initialState, action) => {
   switch (action.type) {
-    case actions.SELECT_PRODUCTS:
-      const items = [...state.selectedProducts]
-      const item = items.find(el => el.sku === action.item.sku)
-      if (item) {
-        switch (action.mode) {
-          case selectProductsTypes.INC:
-            item.selectedNum++
-            break
-          case selectProductsTypes.DEC:
-            item.selectedNum--
-            break
-          case selectProductsTypes.REMOVE:
-            item.selectedNum = 0
-            break
-          default:
-            break
-        }
-      } else {
-        items.push({ ...action.item, selectedNum: 1 })
-      }
-
-      return {
-        ...state,
-        selectedProducts: [...items.filter(el => el.selectedNum !== 0)]
-      }
+    case actions.ADD_TO_CART:
+      return { ...handleCartEvent(state, action, 1) }
+    case actions.REMOVE_FROM_CART:
+      return { ...handleCartEvent(state, action, -1) }
+    case actions.CLEAR_FROM_CART:
+      return { ...handleCartEvent(state, action, 0) }
     case actions.CHECKOUT_CART_SUCCEED:
       return { ...state, msg: action.response.msg }
     case actions.CHECKOUT_CART_RESET:

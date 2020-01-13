@@ -11,7 +11,9 @@ import {
 import {
   checkoutCartRequest,
   applyPromoCode,
-  selectProducts,
+  addToCart,
+  removeFromCart,
+  clearFromCart,
   checkoutCartReset
 } from '../redux/actions'
 import Button from './Button'
@@ -21,7 +23,9 @@ import '../styles/layouts/Checkout.scss'
 class Checkout extends React.Component {
   render() {
     const {
-      selectProducts,
+      addToCart,
+      removeFromCart,
+      clearFromCart,
       selectedProducts,
       selectedTotalNum,
       allPrice,
@@ -50,17 +54,14 @@ class Checkout extends React.Component {
             <div className="checkout__row-name">{el.name}</div>
             <Button
               content={minusSvg}
-              handleClickEvent={() => selectProducts(el, 'DEC')}
+              handleClickEvent={() => removeFromCart(el)}
             />
             <div className="checkout__row-num">{el.selectedNum}</div>
-            <Button
-              content={plusSvg}
-              handleClickEvent={() => selectProducts(el, 'INC')}
-            />
+            <Button content={plusSvg} handleClickEvent={() => addToCart(el)} />
             <div className="checkout__row-price">{el.price}</div>
             <Button
               content={closeSvg}
-              handleClickEvent={() => selectProducts(el, 'REMOVE')}
+              handleClickEvent={() => clearFromCart(el)}
             />
           </div>
         ))}
@@ -108,7 +109,9 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
     {
       applyPromoCode,
-      selectProducts,
+      addToCart,
+      removeFromCart,
+      clearFromCart,
       checkoutCartRequest,
       checkoutCartReset
     },
