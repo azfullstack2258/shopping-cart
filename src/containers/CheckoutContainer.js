@@ -8,7 +8,7 @@ import {
 } from '../selectors'
 import {
   checkoutProducts,
-  checkPromoCode,
+  applyPromoCode,
   selectProducts,
   checkoutProductsReset
 } from '../actions'
@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
     {
-      checkPromoCode,
+      applyPromoCode,
       selectProducts,
       checkoutProducts,
       checkoutProductsReset

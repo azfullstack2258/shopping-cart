@@ -10,7 +10,7 @@ class Checkout extends React.Component {
       selectedProducts,
       selectedTotalNum,
       allPrice,
-      checkPromoCode,
+      applyPromoCode,
       checkoutProducts
     } = this.props
 
@@ -53,7 +53,7 @@ class Checkout extends React.Component {
         <div className="checkout__row">
           <div>Promo Code:</div>
           <input type="text" className="checkout__check-input" />
-          <button className="checkout__check-button" onClick={checkPromoCode}>
+          <button className="checkout__check-button" onClick={applyPromoCode}>
             Apply
           </button>
         </div>

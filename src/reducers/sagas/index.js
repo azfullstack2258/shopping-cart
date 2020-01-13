@@ -2,9 +2,9 @@ import { put, takeEvery, all } from 'redux-saga/effects'
 
 import actionTypes from '../../actions/actionTypes'
 
-function* checkPromoCode() {
+function* applyPromoCode() {
   yield put({
-    type: actionTypes.CHECK_PROMO_CODE_SUCCEED,
+    type: actionTypes.APPLY_PROMO_CODE_SUCCEED,
     response: {
       discounttype: 'percent',
       amount: 10
@@ -12,8 +12,8 @@ function* checkPromoCode() {
   })
 }
 
-export function* checkPromoCodeWatcher() {
-  yield takeEvery(actionTypes.CHECK_PROMO_CODE, checkPromoCode)
+export function* applyPromoCodeWatcher() {
+  yield takeEvery(actionTypes.APPLY_PROMO_CODE, applyPromoCode)
 }
 
 function* checkoutProducts() {
@@ -28,5 +28,5 @@ export function* checkoutProductsWatcher() {
 }
 
 export default function* rootSagas() {
-  yield all([checkPromoCodeWatcher(), checkoutProductsWatcher()])
+  yield all([applyPromoCodeWatcher(), checkoutProductsWatcher()])
 }

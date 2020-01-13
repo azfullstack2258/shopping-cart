@@ -8,41 +8,30 @@ const initialState = {
 
 const cart = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.PRODUCTS_SELECTED:
-      let selectedProducts = [...state.selectedProducts]
-      if (state.selectedProducts.some(el => el.sku === action.item.sku)) {
-        selectedProducts.map(el => {
-          if (el.sku === action.item.sku) {
-            switch (action.mode) {
-              case selectProductsTypes.INC:
-                el.selectedNum++
-                break
-              case selectProductsTypes.DEC:
-                el.selectedNum--
-                break
-              case selectProductsTypes.REMOVE:
-                el.selectedNum = 0
-                break
-              default:
-                break
-            }
-          }
-          return el
-        })
-        return {
-          ...state,
-          selectedProducts: [
-            ...selectedProducts.filter(el => el.selectedNum !== 0)
-          ]
+    case actionTypes.SELECT_PRODUCTS:
+      const items = [...state.selectedProducts]
+      const item = items.find(el => el.sku === action.item.sku)
+      if (item) {
+        switch (action.mode) {
+          case selectProductsTypes.INC:
+            item.selectedNum++
+            break
+          case selectProductsTypes.DEC:
+            item.selectedNum--
+            break
+          case selectProductsTypes.REMOVE:
+            item.selectedNum = 0
+            break
+          default:
+            break
         }
       } else {
-        return {
-          ...state,
-          selectedProducts: [
-            ...state.selectedProducts,
-            { ...action.item, selectedNum: 1 }
-          ]
-        }
+        items.push({ ...action.item, selectedNum: 1 })
+      }
+
+      return {
+        ...state,
+        selectedProducts: [...items.filter(el => el.selectedNum !== 0)]
       }
     case actionTypes.CHECKOUT_PRODUCTS_SUCCEED:
       return { ...state, msg: action.response.msg }
@@ -51,7 +40,7 @@ const cart = (state = initialState, action) => {
         ...state,
         msg: ''
       }
-    case actionTypes.CHECK_PROMO_CODE_SUCCEED:
+    case actionTypes.APPLY_PROMO_CODE_SUCCEED:
       return { ...state, promoCode: action.response }
     default:
       return state
