@@ -26,7 +26,7 @@ function* checkoutProducts() {
 }
 
 export function* checkoutProductsWatcher() {
-  yield takeEvery(actionTypes.CHECKOUT_PRODUCTS, checkoutProducts)
+  yield takeEvery(actionTypes.CHECKOUT_PRODUCTS_REQUEST, checkoutProducts)
 }
 
 function* fetchProducts() {

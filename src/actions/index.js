@@ -5,8 +5,8 @@ export const applyPromoCode = promoCode => ({
   promoCode
 })
 
-export const checkoutProducts = baskets => ({
-  type: actionTypes.CHECKOUT_PRODUCTS,
+export const checkoutProductsRequest = baskets => ({
+  type: actionTypes.CHECKOUT_PRODUCTS_REQUEST,
   baskets
 })
 

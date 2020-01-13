@@ -11,7 +11,7 @@ class Checkout extends React.Component {
       selectedTotalNum,
       allPrice,
       applyPromoCode,
-      checkoutProducts
+      checkoutProductsRequest
     } = this.props
 
     const priceList = [
@@ -65,8 +65,8 @@ class Checkout extends React.Component {
         ))}
         <button
           className="checkout__checkout-button"
-          onClick={checkoutProducts}
-        >
+          onClick={checkoutProductsRequest}
+      >
           Checkout
         </button>
       </div>

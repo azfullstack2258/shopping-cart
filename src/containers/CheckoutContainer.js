@@ -7,7 +7,7 @@ import {
   getSelectedProducts
 } from '../selectors'
 import {
-  checkoutProducts,
+  checkoutProductsRequest,
   applyPromoCode,
   selectProducts,
   checkoutProductsReset
@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
     {
       applyPromoCode,
       selectProducts,
-      checkoutProducts,
+      checkoutProductsRequest,
       checkoutProductsReset
     },
     dispatch
