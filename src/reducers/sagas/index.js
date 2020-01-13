@@ -15,7 +15,7 @@ function* applyPromoCode() {
 }
 
 export function* applyPromoCodeWatcher() {
-  yield takeEvery(actionTypes.APPLY_PROMO_CODE, applyPromoCode)
+  yield takeEvery(actionTypes.APPLY_PROMO_CODE_REQUEST, applyPromoCode)
 }
 
 function* checkoutProducts() {

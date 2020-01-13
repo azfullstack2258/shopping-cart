@@ -1,7 +1,7 @@
 import actionTypes from './actionTypes'
 
 export const applyPromoCode = promoCode => ({
-  type: actionTypes.APPLY_PROMO_CODE,
+  type: actionTypes.APPLY_PROMO_CODE_REQUEST,
   promoCode
 })
 
