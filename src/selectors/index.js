@@ -1,22 +1,22 @@
 import { createSelector } from 'reselect'
 
-export const getCart = state => state.cart
-export const getProducts = state => state.products
-export const getSelectedProducts = state => state.cart.selectedProducts
+export const getCart = state => state.cartReducer
+export const getProducts = state => state.productReducer
+export const getSelectedProducts = state => state.cartReducer.selectedProducts
 
-export const getSelectedTotalNum = createSelector(getCart, item =>
-  item.selectedProducts.reduce((acc, cur) => acc + cur.selectedNum, 0)
+export const getSelectedTotalNum = createSelector(getSelectedProducts, selectedProducts =>
+  selectedProducts.reduce((acc, cur) => acc + cur.selectedNum, 0)
 )
 
 export const getProductsFromCart = createSelector(
   getSelectedProducts,
   getProducts,
-  (selectedProduct, product) => {
+  (selectedProducts, products) => {
     return [
-      ...selectedProduct.map(selectedItem => {
+      ...selectedProducts.map(selectedProduct => {
         return {
-          ...product.find(item => item.sku === selectedItem.sku),
-          selectedNum: selectedItem.selectedNum
+          ...products.find(product => product.sku === selectedProduct.sku),
+          selectedNum: selectedProduct.selectedNum
         }
       })
     ]
@@ -26,10 +26,10 @@ export const getProductsFromCart = createSelector(
 export const getSubTotalOfSelectedProducts = createSelector(
   getSelectedProducts,
   getProducts,
-  (selectedProduct, product) =>
-    selectedProduct
+  (selectedProducts, products) =>
+    selectedProducts
       .reduce((acc, cur) => {
-        const res = product.filter(el => el.sku === cur.sku)
+        const res = products.filter(el => el.sku === cur.sku)
         const price = res.length ? res[0].price : 0
         return acc + price * cur.selectedNum
       }, 0)
@@ -37,7 +37,7 @@ export const getSubTotalOfSelectedProducts = createSelector(
 )
 
 export const getPromoAmount = (state, subTotal) => {
-  const { discounttype, amount } = state.cart.promoCode
+  const { discounttype, amount } = state.cartReducer.promoCode
 
   switch (discounttype) {
     case 'percent':

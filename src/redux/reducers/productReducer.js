@@ -2,7 +2,7 @@ import actionTypes from '../actions'
 
 const initialState = []
 
-const products = (state = initialState, action) => {
+const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_PRODUCTS_SUCCEED:
       return action.products
@@ -11,4 +11,4 @@ const products = (state = initialState, action) => {
   }
 }
 
-export default products
+export default productReducer

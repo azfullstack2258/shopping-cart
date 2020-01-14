@@ -1,4 +1,5 @@
 import actionTypes from '../actions'
+
 const initialState = {
   selectedProducts: [],
   msg: '',
@@ -19,7 +20,7 @@ const handleCartEvent = (state, action, value) => {
   }
 }
 
-const cart = (state = initialState, action) => {
+const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_TO_CART:
       return { ...handleCartEvent(state, action, 1) }
@@ -41,4 +42,4 @@ const cart = (state = initialState, action) => {
   }
 }
 
-export default cart
+export default cartReducer
