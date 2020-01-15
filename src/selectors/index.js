@@ -1,14 +1,14 @@
 import { createSelector } from 'reselect'
 
-export const getCart = state => state.cartReducer
-export const getProducts = state => state.productReducer
-export const getSelectedProducts = state => state.cartReducer.selectedProducts
+export const getCart = state => state.cart
+export const getProducts = state => state.product
+export const getSelectedProducts = state => state.cart.selectedProducts
 
-export const getSelectedTotalNum = createSelector(getSelectedProducts, selectedProducts =>
-  selectedProducts.reduce((acc, cur) => acc + cur.selectedNum, 0)
+export const getCartItemsCount = createSelector(getSelectedProducts, selectedProducts =>
+  selectedProducts.reduce((acc, cur) => acc + cur.count, 0)
 )
 
-export const getProductsFromCart = createSelector(
+export const getCartItemsInfo = createSelector(
   getSelectedProducts,
   getProducts,
   (selectedProducts, products) => {
@@ -16,14 +16,14 @@ export const getProductsFromCart = createSelector(
       ...selectedProducts.map(selectedProduct => {
         return {
           ...products.find(product => product.sku === selectedProduct.sku),
-          selectedNum: selectedProduct.selectedNum
+          count: selectedProduct.count
         }
       })
     ]
   }
 )
 
-export const getSubTotalOfSelectedProducts = createSelector(
+export const getTotalPriceOfCartItems = createSelector(
   getSelectedProducts,
   getProducts,
   (selectedProducts, products) =>
@@ -31,13 +31,13 @@ export const getSubTotalOfSelectedProducts = createSelector(
       .reduce((acc, cur) => {
         const res = products.filter(el => el.sku === cur.sku)
         const price = res.length ? res[0].price : 0
-        return acc + price * cur.selectedNum
+        return acc + price * cur.count
       }, 0)
       .toFixed(2)
 )
 
-export const getPromoAmount = (state, subTotal) => {
-  const { discounttype, amount } = state.cartReducer.promoCode
+export const getDiscountedPrice = (state, subTotal) => {
+  const { discounttype, amount } = state.cart.promoCode
 
   switch (discounttype) {
     case 'percent':
@@ -47,14 +47,14 @@ export const getPromoAmount = (state, subTotal) => {
   }
 }
 
-export const getAllPrice = state => {
-  const subTotal = getSubTotalOfSelectedProducts(state),
-    promoAmount = getPromoAmount(state, subTotal),
+export const getPrices = state => {
+  const subTotal = getTotalPriceOfCartItems(state),
+    promoAmount = getDiscountedPrice(state, subTotal),
     basketTotal = (subTotal - promoAmount).toFixed(2)
   return { subTotal, promoAmount, basketTotal }
 }
 
-export const getCheckoutCartStatus = createSelector(getCart, item => {
+export const getCheckoutStatusMsg = createSelector(getCart, item => {
   switch (item.msg) {
     case 'SUCCESS':
       return 'SUCCESS'

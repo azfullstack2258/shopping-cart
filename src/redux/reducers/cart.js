@@ -11,16 +11,16 @@ const handleCartEvent = (state, action, value) => {
   const item = items.find(el => el.sku === action.sku)
   item
     ? value === 0
-      ? (item.selectedNum = 0)
-      : (item.selectedNum += value)
-    : items.push({ sku: action.sku, selectedNum: 1 })
+      ? (item.count = 0)
+      : (item.count += value)
+    : items.push({ sku: action.sku, count: 1 })
   return {
     ...state,
-    selectedProducts: [...items.filter(el => el.selectedNum !== 0)]
+    selectedProducts: [...items.filter(el => el.count !== 0)]
   }
 }
 
-const cartReducer = (state = initialState, action) => {
+const cart = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_TO_CART:
       return { ...handleCartEvent(state, action, 1) }
@@ -28,9 +28,9 @@ const cartReducer = (state = initialState, action) => {
       return { ...handleCartEvent(state, action, -1) }
     case actionTypes.CLEAR_FROM_CART:
       return { ...handleCartEvent(state, action, 0) }
-    case actionTypes.CHECKOUT_CART_SUCCEED:
+    case actionTypes.CHECKOUT_SUCCEED:
       return { ...state, msg: action.response.msg }
-    case actionTypes.CHECKOUT_CART_RESET:
+    case actionTypes.CART_RESET:
       return {
         ...state,
         msg: ''
@@ -42,4 +42,4 @@ const cartReducer = (state = initialState, action) => {
   }
 }
 
-export default cartReducer
+export default cart

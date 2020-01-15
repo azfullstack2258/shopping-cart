@@ -15,13 +15,13 @@ export function* applyPromoCodeWatcher() {
   yield takeEvery(actionTypes.APPLY_PROMO_CODE_REQUEST, applyPromoCodeSaga)
 }
 
-function* checkoutCartSaga() {
+function* checkoutSaga() {
   yield put({
-    type: actionTypes.CHECKOUT_CART_SUCCEED,
+    type: actionTypes.CHECKOUT_SUCCEED,
     response: { msg: 'SUCCESS' }
   })
 }
 
-export function* checkoutCartWatcher() {
-  yield takeEvery(actionTypes.CHECKOUT_CART_REQUEST, checkoutCartSaga)
+export function* checkoutWatcher() {
+  yield takeEvery(actionTypes.CHECKOUT_REQUEST, checkoutSaga)
 }

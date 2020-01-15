@@ -6,10 +6,10 @@ const cartActionTypes = {
   APPLY_PROMO_CODE_REQUEST: 'APPLY_PROMO_CODE_REQUEST',
   APPLY_PROMO_CODE_SUCCEED: 'APPLY_PROMO_CODE_SUCCEED',
 
-  CHECKOUT_CART_REQUEST: 'CHECKOUT_CART_REQUEST',
-  CHECKOUT_CART_SUCCEED: 'CHECKOUT_CART_SUCCEED',
+  CHECKOUT_REQUEST: 'CHECKOUT_REQUEST',
+  CHECKOUT_SUCCEED: 'CHECKOUT_SUCCEED',
 
-  CHECKOUT_CART_RESET: 'CHECKOUT_CART_RESET'
+  CART_RESET: 'CART_RESET'
 }
 
 export const applyPromoCode = promoCode => ({
@@ -17,13 +17,13 @@ export const applyPromoCode = promoCode => ({
   promoCode
 })
 
-export const checkoutCartRequest = baskets => ({
-  type: cartActionTypes.CHECKOUT_CART_REQUEST,
+export const checkoutRequest = baskets => ({
+  type: cartActionTypes.CHECKOUT_REQUEST,
   baskets
 })
 
-export const checkoutCartReset = () => ({
-  type: cartActionTypes.CHECKOUT_CART_RESET
+export const cartReset = () => ({
+  type: cartActionTypes.CART_RESET
 })
 
 export const addToCart = sku => ({

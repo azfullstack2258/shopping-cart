@@ -10,13 +10,13 @@ import '../styles/layouts/Products.scss'
 import { plusSvg } from '../styles/svg'
 
 const Products = props => {
-  const { selectedTotalNum, products, addToCart } = props
+  const { cartItemsCount, products, addToCart } = props
   return (
     <div className="products">
       <div className="products__header">
         <h1 className="products__title">Products</h1>
         <Link to="/checkout" className="products__cart">
-          Cart {selectedTotalNum}
+          Cart {cartItemsCount}
         </Link>
       </div>
       {products.map(el => (

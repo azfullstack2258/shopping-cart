@@ -4,17 +4,17 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
-  getAllPrice,
-  getCheckoutCartStatus,
-  getProductsFromCart
+  getPrices,
+  getCheckoutStatusMsg,
+  getCartItemsInfo
 } from '../selectors'
 import {
-  checkoutCartRequest,
+  checkoutRequest,
   applyPromoCode,
   addToCart,
   removeFromCart,
   clearFromCart,
-  checkoutCartReset
+  cartReset
 } from '../redux/actions'
 import Button from '../components/Button'
 import { minusSvg, plusSvg, closeSvg } from '../styles/svg'
@@ -26,17 +26,17 @@ class Checkout extends React.Component {
       addToCart,
       removeFromCart,
       clearFromCart,
-      productsFromCart,
-      selectedTotalNum,
-      allPrice,
+      cartItemsInfo,
+      cartItemsCount,
+      prices,
       applyPromoCode,
-      checkoutCartRequest
+      checkoutRequest
     } = this.props
 
     const priceList = [
-      { name: 'Sub Total', price: allPrice.subTotal },
-      { name: 'Promo Amount', price: allPrice.promoAmount },
-      { name: 'Basket Total', price: allPrice.basketTotal }
+      { name: 'Sub Total', price: prices.subTotal },
+      { name: 'Promo Amount', price: prices.promoAmount },
+      { name: 'Basket Total', price: prices.basketTotal }
     ]
 
     return (
@@ -46,17 +46,17 @@ class Checkout extends React.Component {
             &lt;
           </Link>
           <h1 className="checkout__title">Checkout</h1>
-          <div className="checkout__cart">Chart {selectedTotalNum}</div>
+          <div className="checkout__cart">Chart {cartItemsCount}</div>
         </div>
 
-        {productsFromCart.map(el => (
+        {cartItemsInfo.map(el => (
           <div key={el.sku} className="checkout__row">
             <div className="checkout__row-name">{el.name}</div>
             <Button
               content={minusSvg}
               handleClickEvent={() => removeFromCart(el.sku)}
             />
-            <div className="checkout__row-num">{el.selectedNum}</div>
+            <div className="checkout__row-num">{el.count}</div>
             <Button
               content={plusSvg}
               handleClickEvent={() => addToCart(el.sku)}
@@ -84,7 +84,7 @@ class Checkout extends React.Component {
         ))}
         <button
           className="checkout__checkout-button"
-          onClick={checkoutCartRequest}
+          onClick={checkoutRequest}
         >
           Checkout
         </button>
@@ -94,18 +94,18 @@ class Checkout extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props !== prevProps) {
-      if (this.props.checkoutCartStatus === 'SUCCESS') {
+      if (this.props.checkoutStatusMsg === 'SUCCESS') {
         alert('SUCCESS')
-        this.props.checkoutCartReset()
+        this.props.cartReset()
       }
     }
   }
 }
 
 const mapStateToProps = state => ({
-  allPrice: getAllPrice(state),
-  productsFromCart: getProductsFromCart(state),
-  checkoutCartStatus: getCheckoutCartStatus(state)
+  prices: getPrices(state),
+  cartItemsInfo: getCartItemsInfo(state),
+  checkoutStatusMsg: getCheckoutStatusMsg(state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -115,8 +115,8 @@ const mapDispatchToProps = dispatch => ({
       addToCart,
       removeFromCart,
       clearFromCart,
-      checkoutCartRequest,
-      checkoutCartReset
+      checkoutRequest,
+      cartReset
     },
     dispatch
   )

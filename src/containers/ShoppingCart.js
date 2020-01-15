@@ -6,21 +6,21 @@ import { bindActionCreators } from 'redux'
 import Products from './Products'
 import Checkout from './Checkout'
 import { fetchProductsRequest } from '../redux/actions'
-import { getSelectedTotalNum } from '../selectors'
+import { getCartItemsCount } from '../selectors'
 import '../styles/pages/ShoppingCart.scss'
 
 class ShoppingCart extends React.Component {
   render() {
-    const { selectedTotalNum } = this.props
+    const { cartItemsCount } = this.props
 
     return (
       <Router>
         <Switch>
           <Route path="/checkout">
-            <Checkout selectedTotalNum={selectedTotalNum} />
+            <Checkout cartItemsCount={cartItemsCount} />
           </Route>
           <Route path="/">
-            <Products selectedTotalNum={selectedTotalNum} />
+            <Products cartItemsCount={cartItemsCount} />
           </Route>
         </Switch>
       </Router>
@@ -33,7 +33,7 @@ class ShoppingCart extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedTotalNum: getSelectedTotalNum(state)
+  cartItemsCount: getCartItemsCount(state)
 })
 
 const mapDispatchToProps = dispatch => ({
