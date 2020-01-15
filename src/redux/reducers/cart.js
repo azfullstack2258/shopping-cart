@@ -1,22 +1,25 @@
 import actionTypes from '../actions'
 
 const initialState = {
-  selectedProducts: [],
+  selectedProducts: {},
   msg: '',
   promoCode: { discounttype: '', amount: 0 }
 }
 
 const handleCartEvent = (state, action, value) => {
-  const items = [...state.selectedProducts]
-  const item = items.find(el => el.sku === action.sku)
-  item
-    ? value === 0
-      ? (item.count = 0)
-      : (item.count += value)
-    : items.push({ sku: action.sku, count: 1 })
+  const items = {...state.selectedProducts}
+  if (Object.keys(items).includes(action.sku.toString())) {
+    (value === 0)
+      ? items[action.sku] = 0
+      : items[action.sku] += value
+    if (items[action.sku] === 0)
+      delete items[action.sku]
+  }
+  else items[action.sku] = 1
+
   return {
     ...state,
-    selectedProducts: [...items.filter(el => el.count !== 0)]
+    selectedProducts: {...items}
   }
 }
 

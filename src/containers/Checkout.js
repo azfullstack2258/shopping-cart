@@ -38,7 +38,6 @@ class Checkout extends React.Component {
       { name: 'Promo Amount', price: prices.promoAmount },
       { name: 'Basket Total', price: prices.basketTotal }
     ]
-
     return (
       <div className="checkout">
         <div className="checkout__header">
@@ -48,26 +47,27 @@ class Checkout extends React.Component {
           <h1 className="checkout__title">Checkout</h1>
           <div className="checkout__cart">Chart {cartItemsCount}</div>
         </div>
-
-        {cartItemsInfo.map(el => (
-          <div key={el.sku} className="checkout__row">
-            <div className="checkout__row-name">{el.name}</div>
-            <Button
-              content={minusSvg}
-              handleClickEvent={() => removeFromCart(el.sku)}
-            />
-            <div className="checkout__row-num">{el.count}</div>
-            <Button
-              content={plusSvg}
-              handleClickEvent={() => addToCart(el.sku)}
-            />
-            <div className="checkout__row-price">{el.price}</div>
-            <Button
-              content={closeSvg}
-              handleClickEvent={() => clearFromCart(el.sku)}
-            />
-          </div>
-        ))}
+        {
+          cartItemsInfo.map(el => (
+            <div key={el.sku} className="checkout__row">
+              <div className="checkout__row-name">{el.name}</div>
+              <Button
+                content={minusSvg}
+                handleClickEvent={() => removeFromCart(el.sku)}
+              />
+              <div className="checkout__row-num">{el.count}</div>
+              <Button
+                content={plusSvg}
+                handleClickEvent={() => addToCart(el.sku)}
+              />
+              <div className="checkout__row-price">{el.price}</div>
+              <Button
+                content={closeSvg}
+                handleClickEvent={() => clearFromCart(el.sku)}
+              />
+            </div>
+          ))
+        }
 
         <div className="checkout__row">
           <div>Promo Code:</div>

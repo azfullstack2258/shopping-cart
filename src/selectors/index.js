@@ -5,7 +5,7 @@ export const getProducts = state => state.product
 export const getSelectedProducts = state => state.cart.selectedProducts
 
 export const getCartItemsCount = createSelector(getSelectedProducts, selectedProducts =>
-  selectedProducts.reduce((acc, cur) => acc + cur.count, 0)
+  Object.values(selectedProducts).reduce((acc, cur) => acc + cur, 0)
 )
 
 export const getCartItemsInfo = createSelector(
@@ -13,10 +13,10 @@ export const getCartItemsInfo = createSelector(
   getProducts,
   (selectedProducts, products) => {
     return [
-      ...selectedProducts.map(selectedProduct => {
+      ...Object.keys(selectedProducts).map(selectedProduct => {
         return {
-          ...products.find(product => product.sku === selectedProduct.sku),
-          count: selectedProduct.count
+          ...products.find(product => selectedProduct === product.sku.toString()),
+          count: selectedProducts[selectedProduct]
         }
       })
     ]
@@ -27,11 +27,10 @@ export const getTotalPriceOfCartItems = createSelector(
   getSelectedProducts,
   getProducts,
   (selectedProducts, products) =>
-    selectedProducts
+    Object.keys(selectedProducts)
       .reduce((acc, cur) => {
-        const res = products.filter(el => el.sku === cur.sku)
-        const price = res.length ? res[0].price : 0
-        return acc + price * cur.count
+        const price = products.find(product => product.sku.toString() === cur).price || 0
+        return acc + price * selectedProducts[cur]
       }, 0)
       .toFixed(2)
 )
@@ -48,9 +47,9 @@ export const getDiscountedPrice = (state, subTotal) => {
 }
 
 export const getPrices = state => {
-  const subTotal = getTotalPriceOfCartItems(state),
-    promoAmount = getDiscountedPrice(state, subTotal),
-    basketTotal = (subTotal - promoAmount).toFixed(2)
+  const subTotal = getTotalPriceOfCartItems(state)
+  const promoAmount = getDiscountedPrice(state, subTotal)
+  const basketTotal = (subTotal - promoAmount).toFixed(2)
   return { subTotal, promoAmount, basketTotal }
 }
 
