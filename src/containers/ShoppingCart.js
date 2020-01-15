@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -10,7 +11,11 @@ import { getCartItemsCount } from '../selectors'
 import '../styles/pages/ShoppingCart.scss'
 
 class ShoppingCart extends React.Component {
-  render() {
+  componentDidMount () {
+    this.props.fetchProductsRequest()
+  }
+
+  render () {
     const { cartItemsCount } = this.props
 
     return (
@@ -26,10 +31,11 @@ class ShoppingCart extends React.Component {
       </Router>
     )
   }
+}
 
-  componentDidMount() {
-    this.props.fetchProductsRequest()
-  }
+ShoppingCart.propTypes = {
+  cartItemsCount: PropTypes.number,
+  fetchProductsRequest: PropTypes.func
 }
 
 const mapStateToProps = state => ({

@@ -1,12 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
   getPrices,
-  getCheckoutStatusMsg,
-  getCartItemsInfo
+  getCheckoutStatus,
+  getCartItemsInfo,
+  getPromoCodeStatus
 } from '../selectors'
 import {
   checkoutRequest,
@@ -21,16 +23,40 @@ import { minusSvg, plusSvg, closeSvg } from '../styles/svg'
 import '../styles/layouts/Checkout.scss'
 
 class Checkout extends React.Component {
-  render() {
+  constructor (props) {
+    super(props)
+    this.state = { promoCode: '' }
+
+    this.handleCheckoutRequest = this.handleCheckoutRequest.bind(this)
+  }
+
+  handleRemoveFromCart (sku) { return this.props.removeFromCart(sku) }
+  handleAddToCart (sku) { return this.props.addToCart(sku) }
+  handleClearFromCart (sku) { return this.props.clearFromCart(sku) }
+  handleCheckoutRequest () {
+    const { cartItemsInfo, checkoutRequest } = this.props
+    return checkoutRequest(
+      cartItemsInfo.map(item => ({ sku: item.sku, quantity: item.count }))
+    )
+  }
+
+  componentDidUpdate (prevProps) {
+    const { checkoutStatus: { msg } } = this.props
+    if (msg && msg !== prevProps.checkoutStatus.msg) {
+      const { cartReset } = this.props
+      alert(msg)
+      cartReset()
+    }
+  }
+
+  render () {
     const {
-      addToCart,
-      removeFromCart,
-      clearFromCart,
       cartItemsInfo,
       cartItemsCount,
       prices,
       applyPromoCode,
-      checkoutRequest
+      promoCodeStatus,
+      checkoutStatus
     } = this.props
 
     const priceList = [
@@ -53,59 +79,80 @@ class Checkout extends React.Component {
               <div className="checkout__row-name">{el.name}</div>
               <Button
                 content={minusSvg}
-                handleClickEvent={() => removeFromCart(el.sku)}
+                onClick={() => this.handleRemoveFromCart(el.sku)}
               />
               <div className="checkout__row-num">{el.count}</div>
               <Button
                 content={plusSvg}
-                handleClickEvent={() => addToCart(el.sku)}
+                onClick={() => this.handleAddToCart(el.sku)}
               />
               <div className="checkout__row-price">{el.price}</div>
               <Button
                 content={closeSvg}
-                handleClickEvent={() => clearFromCart(el.sku)}
+                onClick={() => this.handleClearFromCart(el.sku)}
               />
             </div>
           ))
         }
 
         <div className="checkout__row">
-          <div>Promo Code:</div>
-          <input type="text" className="checkout__check-input" />
-          <button className="checkout__check-button" onClick={applyPromoCode}>
+          <div className={promoCodeStatus.errors ? 'error' : ''}>Promo Code:</div>
+          <input type="text" className="checkout__check-input" onChange={(event) => this.setState({ promoCode: event.target.value })}/>
+          <button className="checkout__check-button" onClick={() => applyPromoCode(this.state.promoCode)}>
             Apply
           </button>
         </div>
 
-        {priceList.map(el => (
-          <div key={el.name} className="checkout__row">
-            {el.name}: {el.price}
-          </div>
-        ))}
+        {
+          priceList.map(el => (
+            <div key={el.name} className="checkout__row">
+              {el.name}: {el.price}
+            </div>
+          ))
+        }
+
+        {
+          checkoutStatus.errors &&
+            checkoutStatus.errors.map((error, i) => {
+              const { field, msg } = error
+              return (
+                <div className="error" key={i}>
+                  <span className="error__field">{ field }: </span>
+                  <span className="error__msg">{ msg }</span>
+                </div>
+              )
+            })
+        }
         <button
           className="checkout__checkout-button"
-          onClick={checkoutRequest}
+          onClick={this.handleCheckoutRequest}
         >
           Checkout
         </button>
       </div>
     )
   }
+}
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props !== prevProps) {
-      if (this.props.checkoutStatusMsg === 'SUCCESS') {
-        alert('SUCCESS')
-        this.props.cartReset()
-      }
-    }
-  }
+Checkout.propTypes = {
+  cartItemsCount: PropTypes.number,
+  prices: PropTypes.object,
+  cartItemsInfo: PropTypes.array,
+  checkoutStatus: PropTypes.object,
+  promoCodeStatus: PropTypes.object,
+  applyPromoCode: PropTypes.func,
+  addToCart: PropTypes.func,
+  removeFromCart: PropTypes.func,
+  clearFromCart: PropTypes.func,
+  checkoutRequest: PropTypes.func,
+  cartReset: PropTypes.func
 }
 
 const mapStateToProps = state => ({
   prices: getPrices(state),
   cartItemsInfo: getCartItemsInfo(state),
-  checkoutStatusMsg: getCheckoutStatusMsg(state)
+  checkoutStatus: getCheckoutStatus(state),
+  promoCodeStatus: getPromoCodeStatus(state)
 })
 
 const mapDispatchToProps = dispatch => ({

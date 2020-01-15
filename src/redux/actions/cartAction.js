@@ -17,9 +17,9 @@ export const applyPromoCode = promoCode => ({
   promoCode
 })
 
-export const checkoutRequest = baskets => ({
+export const checkoutRequest = cart => ({
   type: cartActionTypes.CHECKOUT_REQUEST,
-  baskets
+  cart
 })
 
 export const cartReset = () => ({

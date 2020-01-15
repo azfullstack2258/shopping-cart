@@ -3,7 +3,7 @@ import productActionTypes from './productAction'
 
 const actionTypes = {
   ...cartActionTypes,
-  ...productActionTypes,
+  ...productActionTypes
 }
 
 export * from './cartAction'
